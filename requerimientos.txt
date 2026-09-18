@@ -1,0 +1,146 @@
+
+===========================================
+PROYECTO: ViajesPorElMundo
+Asistente Inteligente de Planificación de Viajes
+===========================================
+
+REQUISITOS DEL SISTEMA
+
+Para ejecutar este proyecto correctamente se necesita:
+
+1. Python
+- Versión recomendada: Python 3.11.x
+- NO usar Python 3.14 (incompatible con FastAPI)
+
+2. MongoDB
+- Tener MongoDB instalado y ejecutándose
+- Se puede usar MongoDB Compass
+
+3. SWI-Prolog
+- Versión recomendada: 10.x
+- Verificar que el comando "swipl" funcione en terminal
+
+4. Ollama (IA local)
+- Descargar desde: https://ollama.com
+- Instalar normalmente
+- Descargar modelo con:
+  ollama run gemma3
+
+===========================================
+INSTALACIÓN DEL PROYECTO
+===========================================
+
+1. Abrir terminal en la carpeta del proyecto
+
+Ejemplo:
+cd ViajesPorElMundo
+
+-------------------------------------------
+
+2. Crear entorno virtual
+
+python -m venv .venv
+
+-------------------------------------------
+
+3. Activar entorno virtual
+
+Windows:
+.venv\Scripts\activate
+
+-------------------------------------------
+
+4. Instalar dependencias
+
+pip install fastapi uvicorn pymongo python-dotenv pydantic pyswip requests
+
+-------------------------------------------
+
+5. Verificar instalación
+
+pip list
+
+Debe incluir:
+- fastapi
+- uvicorn
+- pymongo
+- pydantic
+- pyswip
+- requests
+
+-------------------------------------------
+
+6. Ejecutar el backend
+
+python -m uvicorn app.main:app --reload
+
+-------------------------------------------
+
+7. Abrir en navegador
+
+http://127.0.0.1:8000/docs
+
+===========================================
+EJECUCIÓN DEL FRONTEND
+===========================================
+
+1. Ir a la carpeta:
+frontend/
+
+2. Abrir:
+index.html
+
+Opcional:
+Usar Live Server en VS Code
+
+===========================================
+USO DEL SISTEMA
+===========================================
+
+1. Ingresar:
+- Nombre
+- Países visitados
+- Gustos
+- Presupuesto
+- Clima
+- Tipo de viaje
+
+2. Presionar:
+"Generar plan de viaje"
+
+3. El sistema mostrará:
+- Destinos recomendados
+- Ruta sugerida
+- Explicación generada por IA
+
+===========================================
+NOTAS IMPORTANTES
+===========================================
+
+- MongoDB debe estar encendido antes de ejecutar el backend
+- Ollama debe estar instalado (ya queda corriendo en segundo plano)
+- No ejecutar "ollama serve" si ya está corriendo
+- El modelo gemma3 debe estar descargado
+
+===========================================
+ARQUITECTURA DEL PROYECTO
+===========================================
+
+Frontend:
+- HTML, CSS, JavaScript
+
+Backend:
+- Python (FastAPI)
+
+Base de datos:
+- MongoDB
+
+Motor lógico:
+- Prolog (SWI-Prolog)
+
+Inteligencia Artificial:
+- Ollama (modelo local gemma3)
+
+===========================================
+FIN
+===========================================
