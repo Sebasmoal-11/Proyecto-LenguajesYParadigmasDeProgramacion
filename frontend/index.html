@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ViajesPorElMundo</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">✈</div>
+        <div>
+          <h1>ViajesPorElMundo</h1>
+          <p>Planificador inteligente</p>
+        </div>
+      </div>
+
+      <nav class="nav-menu">
+        <button class="nav-btn active" data-view="planificador">
+          <span>🧭</span>
+          <span>Planificador</span>
+        </button>
+        <button class="nav-btn" data-view="historial">
+          <span>🕘</span>
+          <span>Historial</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <p>Proyecto de Lenguajes y Paradigmas</p>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <h2 id="viewTitle">Planificador de viajes</h2>
+          <p id="viewSubtitle">Ingresa tu perfil y recibe recomendaciones personalizadas</p>
+        </div>
+      </header>
+
+      <!-- VISTA 1 -->
+      <section id="planificadorView" class="view active-view">
+        <div class="dashboard-grid">
+          <section class="card glass-card">
+            <div class="card-header">
+              <h3>Perfil del viajero</h3>
+              <p>Completa tus preferencias para generar un plan</p>
+            </div>
+
+            <form id="travelForm" class="modern-form">
+              <div class="form-grid">
+                <div class="form-group full-width">
+                  <label for="nombre">Nombre</label>
+                  <input type="text" id="nombre" name="nombre" placeholder="Ejemplo: Marcelo" required />
+                </div>
+
+                <div class="form-group full-width">
+                  <label for="paises_visitados">Países visitados</label>
+                  <input
+                    type="text"
+                    id="paises_visitados"
+                    name="paises_visitados"
+                    placeholder="Ejemplo: Costa Rica, Brasil"
+                  />
+                  <small>Separa los países por comas</small>
+                </div>
+
+                <div class="form-group">
+                  <label for="gustos">Gustos / intereses</label>
+                  <select id="gustos" name="gustos" required>
+                    <option value="">Seleccione una opción</option>
+                    <option value="cultural">Cultural</option>
+                    <option value="naturaleza">Naturaleza</option>
+                    <option value="playa">Playa</option>
+                    <option value="aventura">Aventura</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="presupuesto">Presupuesto</label>
+                  <select id="presupuesto" name="presupuesto" required>
+                    <option value="">Seleccione una opción</option>
+                    <option value="bajo">Bajo</option>
+                    <option value="medio">Medio</option>
+                    <option value="alto">Alto</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="clima_preferido">Clima preferido</label>
+                  <select id="clima_preferido" name="clima_preferido" required>
+                    <option value="">Seleccione una opción</option>
+                    <option value="templado">Templado</option>
+                    <option value="tropical">Tropical</option>
+                    <option value="frio">Frío</option>
+                    <option value="calido">Cálido</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="tipo_viaje">Tipo de viaje</label>
+                  <select id="tipo_viaje" name="tipo_viaje" required>
+                    <option value="">Seleccione una opción</option>
+                    <option value="cultural">Cultural</option>
+                    <option value="naturaleza">Naturaleza</option>
+                    <option value="playa">Playa</option>
+                    <option value="aventura">Aventura</option>
+                  </select>
+                </div>
+              </div>
+
+              <button type="submit" class="primary-btn">Generar plan de viaje</button>
+            </form>
+          </section>
+
+          <section class="card result-panel">
+            <div class="card-header">
+              <h3>Resultado</h3>
+              <p>Tu recomendación personalizada aparecerá aquí</p>
+            </div>
+
+            <div id="loading" class="loading-box hidden">
+              <div class="loader"></div>
+              <span>Generando recomendación personalizada...</span>
+            </div>
+
+            <div id="welcomeState" class="empty-state">
+              <div class="empty-icon">🌍</div>
+              <h4>Tu próxima aventura empieza aquí</h4>
+              <p>Completa el formulario para recibir destinos recomendados, ruta sugerida y una explicación generada por IA.</p>
+            </div>
+
+            <div id="resultCard" class="result-card hidden">
+              <div class="highlight-banner">
+                <span>Plan generado exitosamente</span>
+              </div>
+
+              <div class="result-block">
+                <h4>Destinos recomendados</h4>
+                <ul id="recomendacionesList" class="pill-list"></ul>
+              </div>
+
+              <div class="result-block">
+                <h4>Ruta sugerida</h4>
+                <ol id="rutaList" class="route-list"></ol>
+              </div>
+
+              <div class="result-block">
+                <h4>Explicación inteligente</h4>
+                <p id="explicacionText" class="explanation-box"></p>
+              </div>
+            </div>
+
+            <div id="errorBox" class="error-box hidden"></div>
+          </section>
+        </div>
+      </section>
+
+      <!-- VISTA 2 -->
+      <section id="historialView" class="view">
+        <div class="history-header">
+          <div>
+            <h3>Historial de consultas</h3>
+            <p>Visualiza todas las recomendaciones generadas por el sistema</p>
+          </div>
+          <button id="refreshHistoryBtn" class="secondary-btn">Actualizar historial</button>
+        </div>
+
+        <div id="historyLoading" class="loading-box hidden">
+          <div class="loader"></div>
+          <span>Cargando historial...</span>
+        </div>
+
+        <div id="historyEmpty" class="empty-state">
+          <div class="empty-icon">📄</div>
+          <h4>Aún no hay consultas registradas</h4>
+          <p>Cuando generes planes de viaje, aparecerán en esta sección.</p>
+        </div>
+
+        <div id="historyGrid" class="history-grid hidden"></div>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
